@@ -1,21 +1,20 @@
 <header class="masthead">
   <img class="mark" src="__LOGO__" alt="Ultranarrative">
   <div class="masthead-meta">
-    <span>Lab note 01</span>
+    <span>Lab notes 01 to 05</span>
     <span>September 2026</span>
   </div>
 </header>
 
 <div class="lede">
-  <p class="eyebrow">Reproducing May 1972, and testing one prediction against it</p>
-  <h1>Will a large complex system be stable?</h1>
+  <p class="eyebrow">Five experiments on whether complexity produces its own fragility</p>
+  <h1>A system walks to its own edge, and gives no notice when it goes over</h1>
   <p class="standfirst">
-    Robert May asked it in <cite>Nature</cite> in 1972 and answered with a threshold.
-    Wire together <span class="sym">S</span> species at random, let each interaction
-    have typical strength <span class="sym">&sigma;</span> and let a fraction
-    <span class="sym">C</span> of the possible links exist, and the community holds
-    together only while <span class="sym">&sigma;&radic;(SC)</span> stays below 1.
-    Past that, it falls apart. Drag the controls and watch the threshold arrive.
+    The question behind this is cosmological and cannot be tested. The claim it rests on
+    can be. If complexity does not generically produce its own fragility, then the
+    argument from complexification fails whatever else is true, so that mechanism is what
+    these experiments go after. Below is the yardstick everything is measured against,
+    live, and then what five experiments did to the thesis that motivated them.
   </p>
 </div>
 
@@ -80,66 +79,112 @@
     </div>
   </aside>
 </section>
+<section class="findings">
+  <h2>What five experiments settled</h2>
+
+  <article>
+    <h3>01 &middot; Walls do not raise the ceiling</h3>
+    <p>
+      At a fixed link budget, compartmentalizing a community does not move the stability
+      threshold. Grilli, Rogers and Allesina proved this analytically in 2016, so the
+      experiment reproduces a known theorem rather than finding one. What compartments do
+      instead is cap the reach of a failure, and that cap is graded: it weakens as the
+      system nears criticality.
+    </p>
+  </article>
+
+  <article>
+    <h3>02 &middot; Complexity walks itself to the edge</h3>
+    <p>
+      A community that grows its own complexity, one arriving species at a time, drives its
+      leading eigenvalue from 0.84 of the bulk spectrum down to 0.03. Every interaction
+      strength tested converges on the same endpoint while reaching very different
+      complexity. Nothing tunes it there. No maintenance cost is present. This was
+      established by Biroli, Bunin and Cammarota in 2018 and is reproduced here, not
+      discovered here.
+    </p>
+  </article>
+
+  <article>
+    <h3>03 &middot; Protection fails exactly where the system lands</h3>
+    <p>
+      Predicted before it was run, then tested in one model. Compartments do not slow the
+      approach to criticality at all, and by the time a community arrives there, containment
+      has already failed for every partial separation. Only complete decoupling holds. The
+      unpredicted part: a uniform background coupling of 0.00125 per pair breaks containment
+      even with <em>all</em> of the interaction variance sealed inside compartments. Walls
+      have to stop everything, not just the variable part.
+    </p>
+  </article>
+
+  <article>
+    <h3>04 &middot; Not ecology, but not universal either</h3>
+    <p>
+      Associative memories share no mathematics with interacting populations, having discrete
+      states, an energy function and no interaction matrix whose eigenvalues decide anything.
+      They converge to their own critical point anyway. Random Boolean networks do not, and
+      their endpoint tracks how they were built. What separates them is interference: whether
+      a new element degrades the ones already present. Species and memories both charge the
+      incumbents. A Boolean node is free. The two that charge converge, the one that does not
+      fails to.
+    </p>
+  </article>
+
+  <article>
+    <h3>05 &middot; And nothing warns you</h3>
+    <p>
+      Superlinear maintenance cost alone never collapses anything, it just shrinks the
+      system. Collapse needs the cost to fall on whoever is left, so that losing members
+      raises the burden on the rest. And the standard early warnings do not work here:
+      across 61 collapsing and 88 surviving histories, variance separates them by 0.04 and
+      autocorrelation by <em>minus</em> 0.14, rising less often before collapse than without
+      it. The reason follows from experiment 02. A system permanently at marginal stability
+      recovers slowly all the time, so critical slowing down has nothing left to signal with.
+    </p>
+  </article>
+</section>
 
 <section class="findings">
-  <h2>Three things this rig was built to settle</h2>
+  <h2>What this does and does not support</h2>
 
   <article>
-    <h3>The bound reproduces</h3>
+    <h3>Earned</h3>
     <p>
-      Sweeping <span class="sym">&sigma;&radic;(SC)</span> across 150 draws per point, the
-      probability of stability collapses at 1.092 for <span class="sym">S</span> = 50,
-      1.036 at 100 and 1.026 at 200. It converges on 1 from above as the finite-size
-      wobble shrinks, which is what May predicted.
+      Complexification drives systems to marginality <em>wherever complexity is built from
+      elements that compete for something finite</em>. That is a cross-domain statement
+      formal enough to fail, and failing it is specific: find a substrate with interference
+      that does not converge, or one without interference that does.
     </p>
   </article>
 
   <article>
-    <h3>Compartments do not move the threshold</h3>
+    <h3>Not earned</h3>
     <p>
-      Hold the link budget fixed and redistribute links inward, and the transition sits at
-      1.045 with no compartments and 0.972 when they are sealed. This follows from the
-      construction: packing the same links into smaller blocks raises the density inside
-      each one by exactly enough to cancel the size reduction, so the eigenvalue disk keeps
-      its radius. Grilli, Rogers and Allesina proved the general case analytically in 2016,
-      so this is a numerical instance of a known theorem rather than a new result. The
-      shortfall at <span class="sym">q</span> = 1 is an extreme-value effect: four blocks
-      are all stable with probability <span class="sym">p&#8308;</span>, which predicts a
-      transition at 0.981 against a measured 0.978. Set <span class="sym">m</span> to 4 and
-      drag <span class="sym">q</span> to see the cloud refuse to shrink.
-    </p>
-  </article>
-
-  <article>
-    <h3>What they do instead is cap the reach of a failure</h3>
-    <p>
-      Compared at the same distance to the stability boundary, the worst single press moves
-      99 percent of an integrated community and 24 percent of a compartmentalized one,
-      which is exactly the share inside one compartment. Only complete separation gives a
-      hard cap, and it is exact rather than statistical, because the inverse is block
-      diagonal and damage cannot leave the block it started in. Partial separation buys
-      real but graded protection that <em>decays as the system approaches criticality</em>:
-      at <span class="sym">q</span> = 0.99, damage is held to 31 percent at a comfortable
-      margin and reaches 81 percent at the edge. The mechanism is gain rather than
-      connectivity, since one cross link already makes the inverse dense and what changes
-      near the boundary is magnitude.
+      Universality. Accretion alone does nothing, so "structurally predisposed" holds only
+      under a condition the thesis does not state. The Maintenance Thesis is also
+      over-specified: it stipulates three ingredients and the phenomenon appears with none
+      of them. And whether the universe is a system of this kind is not a question any of
+      this can answer.
     </p>
   </article>
 </section>
 
 <footer class="colophon">
   <p>
-    <strong>Method.</strong> May's original community matrix, with <span class="sym">-1</span> on the
-    diagonal and off-diagonal entries drawn independently from
-    <span class="sym">N(0, &sigma;&sup2;)</span> with probability <span class="sym">C</span>.
+    <strong>Method.</strong> The instrument above is May's original community matrix, with
+    <span class="sym">-1</span> on the diagonal and off-diagonal entries drawn independently
+    from <span class="sym">N(0, &sigma;&sup2;)</span> with probability <span class="sym">C</span>.
     Eigenvalues are computed in the browser by Householder reduction to Hessenberg form
-    followed by Francis double-shift QR, checked against LAPACK to 1.2e-14.
+    followed by Francis double-shift QR, checked against LAPACK to 1.2e-14. Every result
+    below it carries a control, and the negative results are kept at the same prominence as
+    the positive ones.
   </p>
   <p>
-    May, R. M. (1972). Will a large complex system be stable? <cite>Nature</cite> 238, 413. &middot;
-    Grilli, J., Rogers, T. &amp; Allesina, S. (2016). Modularity and stability in ecological
-    communities. <cite>Nat. Commun.</cite> 7, 12031. &middot; Stouffer, D. B. &amp; Bascompte, J. (2011).
-    Compartmentalization increases food-web persistence. <cite>PNAS</cite> 108, 3648.
+    Grilli, J., Rogers, T. &amp; Allesina, S. (2016). <cite>Nat. Commun.</cite> 7, 12031. &middot;
+    Biroli, G., Bunin, G. &amp; Cammarota, C. (2018). <cite>New J. Phys.</cite> 20, 083051. &middot;
+    May, R. M. (1972). <cite>Nature</cite> 238, 413. &middot;
+    Scheffer, M. et al. (2009). <cite>Nature</cite> 461, 53. &middot;
+    Amit, D. J., Gutfreund, H. &amp; Sompolinsky, H. (1985). <cite>Phys. Rev. Lett.</cite> 55, 1530.
   </p>
   <p class="colophon-mark">Ultranarrative Lab &middot; unpublished working material</p>
 </footer>

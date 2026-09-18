@@ -172,10 +172,12 @@ what it found, its own scripts, saved results and figures.
 ```
 src/suc/          models and shared measures, imported by every experiment
   may.py          random community matrix, stability, press perturbation
-  assembly.py     generalized Lotka-Volterra assembly
-  figstyle.py     shared figure style
+  assembly.py     generalized Lotka-Volterra assembly, plus the modular pool
+  substrates.py   Hopfield memory and random Boolean networks
+  maintenance.py  assembly under a maintenance cost, and early-warning detectors
+  figstyle.py     shared figure style and the validated palettes
 experiments/      one directory per experiment, self-contained
-site/             the password-gated lab note built from experiment 01
+site/             the password-gated lab note
 ```
 
 ## Running it
@@ -201,15 +203,32 @@ cd experiments/02-assembly && ../../.venv/bin/python run_assembly.py
 - **Corrections are commits, not edits.** Experiment 01's containment claim was wrong in
   the first version and the history says so.
 - **Check the literature before claiming novelty.** Result 2 of experiment 01 turned out
-  to be a numerical instance of a theorem proved in 2016.
+  to be a numerical instance of a theorem proved in 2016, and experiment 02's core result
+  was established in 2018. Both READMEs say so.
+- **Check that the mechanism can bite before interpreting the output.** Experiment 05's
+  first model returned identical results at every parameter, because the Lotka-Volterra
+  equilibrium is scale-invariant in `K` and a cost expressed as a reduction in `K` cannot
+  change composition. An inert model is easy to mistake for a null result.
+- **The filter must not be the thing being measured.** Every viability filter in
+  [experiment 04](experiments/04-substrates/) is functional rather than stability-based,
+  so criticality has to emerge instead of being enforced. A filter that said "stay stable"
+  would have assumed the conclusion.
+- **Small samples in signal detection are how false positives happen.** Experiment 05's
+  first pass at P2 had 12 collapses and showed variance rising in 0.75 of them against
+  0.31 of survivals, which looks decisive. At 61 it is 0.54 against 0.50.
 
 ## References
 
 Allesina, S. & Tang, S. (2012). Stability criteria for complex ecosystems. *Nature* 483, 205-208.
+Amit, D. J., Gutfreund, H. & Sompolinsky, H. (1985). Storing infinite numbers of patterns in a spin-glass model of neural networks. *Phys. Rev. Lett.* 55, 1530-1533.
 Bender, E. A., Case, T. J. & Gilpin, M. E. (1984). Perturbation experiments in community ecology. *Ecology* 65, 1-13.
 Biroli, G., Bunin, G. & Cammarota, C. (2018). Marginally stable equilibria in critical ecosystems. *New J. Phys.* 20, 083051.
 Bunin, G. (2017). Ecological communities with Lotka-Volterra dynamics. *Phys. Rev. E* 95, 042414.
+Derrida, B. & Pomeau, Y. (1986). Random networks of automata: a simple annealed approximation. *Europhys. Lett.* 1, 45-49.
 Grilli, J., Rogers, T. & Allesina, S. (2016). Modularity and stability in ecological communities. *Nat. Commun.* 7, 12031.
+Kauffman, S. A. (1969). Metabolic stability and epigenesis in randomly constructed genetic nets. *J. Theor. Biol.* 22, 437-467.
 May, R. M. (1972). Will a large complex system be stable? *Nature* 238, 413-414.
 McCann, K. S. (2000). The diversity-stability debate. *Nature* 405, 228-233.
+Scheffer, M. et al. (2009). Early-warning signals for critical transitions. *Nature* 461, 53-59.
 Stouffer, D. B. & Bascompte, J. (2011). Compartmentalization increases food-web persistence. *PNAS* 108, 3648-3652.
+Tainter, J. A. (1988). *The Collapse of Complex Societies.* Cambridge University Press.
