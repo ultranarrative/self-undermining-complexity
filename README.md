@@ -38,10 +38,17 @@ class, shown by [experiment 02](experiments/02-assembly/) and established before
 Biroli, Bunin and Cammarota (2018). Reproduced here, not discovered here.
 
 **It has to be generic.** One model class is an existence proof, not a structural claim.
-The mechanism has to recur in systems that share no physics with each other, and it has to
-beat a null of the same size in each. Here, **"structurally" means the effect recurs across
-independent substrates rather than being peculiar to one physical implementation.** This is
-experiment 04 and it is the central deliverable of the whole programme, not a caveat on it.
+Here, **"structurally" means the effect recurs across independent substrates rather than
+being peculiar to one physical implementation.**
+[Experiment 04](experiments/04-substrates/) tested this and the word is **partly earned**.
+Associative memories share no mathematics with Lotka-Volterra and converge to criticality
+anyway, so the phenomenon is not an artefact of ecology. But Boolean networks do not
+converge, so accretion alone is not sufficient. What separates them is interference,
+whether a new element degrades the elements already present, and that yields a sharper
+claim than universality would have:
+
+> **Accretion drives a system to its own critical point when new elements degrade
+> existing ones, and not otherwise.**
 
 **It has to survive the observer.** *The Epistemic Filter* argues that evolved observers
 over-detect purpose, and "predisposed" is a purpose word. Stories of order consuming
@@ -101,6 +108,9 @@ That is good news for the thesis and bad news for this formalization of it.
 | Modularity's protection fails at the state assembly selects | **Supported.** Tested directly in one model. Only complete separation holds, and a uniform background coupling undoes even that | [03](experiments/03-compartmental-assembly/) |
 | Compartments slow the approach to criticality | **False.** Every level of compartmentalization reaches the same marginal state | [03](experiments/03-compartmental-assembly/) |
 | Assembly raises the propagation scale | **Not supported.** Reach rises with complexity as a size effect; a matched random draw has the same reach | [02](experiments/02-assembly/) |
+| The mechanism is not peculiar to ecology | **Supported.** Hopfield networks share no mathematics with Lotka-Volterra and converge to criticality anyway | [04](experiments/04-substrates/) |
+| Accretion alone drives any system to criticality | **False.** Boolean networks do not converge; their endpoint tracks `K` | [04](experiments/04-substrates/) |
+| Interference is what separates the substrates that converge from those that do not | **Supported by one contrast**, not established. Degradation per arrival: 0.0282, 0.0074, and exactly 0 | [04](experiments/04-substrates/) |
 
 ## The claim the two experiments make together
 
@@ -127,12 +137,22 @@ modularity reaches the same marginal state.
 | [**01. Drawn**](experiments/01-random-matrix/) | Does compartmentalization move May's stability bound? | No, and it was already known. It caps damage instead, gradedly |
 | [**02. Grown**](experiments/02-assembly/) | Does a community that grows its own complexity walk to the edge? | Yes, and with no help |
 | [**03. Grown into compartments**](experiments/03-compartmental-assembly/) | Does containment survive at the endpoint assembly picks? | No. Walls do not slow criticality, and only complete separation contains damage there |
-| **04. Other substrates** | Does self-driven criticality appear in systems with no ecology in them? | Not yet run |
+| [**04. Other substrates**](experiments/04-substrates/) | Does self-driven criticality appear in systems with no ecology in them? | In two of three. The one that fails shows what the necessary ingredient is |
 
-Experiment 04 is the one that decides whether "structurally" is earned. The assembly
-result has to be reproduced in at least two model classes that share no mechanism with
-Lotka-Volterra, and where a null of the same size does not reproduce it. If it recurs,
-the claim is about complexification. If it does not, it is a fact about ecology.
+### Where the programme has got to
+
+The defensible claim is narrower than the thesis wanted and more useful than the thesis
+had:
+
+> Complexification drives systems to marginality **wherever complexity is built from
+> elements that compete for something finite.** Where arrival is free, it does not.
+
+That is a cross-domain statement formal enough to fail, which is what the original working
+note said nobody had produced. Failing it is specific: find a substrate with interference
+that does not converge, or one without interference that does.
+
+What it does not reach, and no experiment here can, is whether the universe is such a
+system.
 
 Each experiment directory is self-contained: its own README stating what it asked and
 what it found, its own scripts, saved results and figures.

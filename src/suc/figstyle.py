@@ -23,6 +23,11 @@ RAMP_5 = ["#86b6ef", "#5598e7", "#2a78d6", "#1c5cab", "#0d366b"]
 RAMP_4 = ["#86b6ef", "#3987e5", "#1c5cab", "#0d366b"]
 RAMP_3 = ["#86b6ef", "#2a78d6", "#0d366b"]
 
+# Categorical, for the one comparison in this repository that is between kinds
+# rather than along a scale: three substrates. The first three slots of the
+# validated palette are the ones that clear the all-pairs gates.
+CAT_3 = ["#2a78d6", "#eb6834", "#1baf7a"]
+
 RC = {
     "font.family": "sans-serif",
     "font.sans-serif": ["Inter", "Helvetica Neue", "Helvetica", "Arial", "DejaVu Sans"],
