@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+title: "Self-undermining complexity: five experiments on complexification and criticality"
+message: "If you use this software or its results, please cite it."
+type: software
+authors:
+  - family-names: "Rodriguez Suarez"
+    given-names: "Daniel"
+    email: "dan@ultranarrative.com"
+repository-code: "https://github.com/ultranarrative/self-undermining-complexity"
+abstract: >-
+  Five computational experiments testing whether systems that grow their own
+  complexity drive themselves toward their own instability. Across three
+  substrates sharing no mechanism, an ecological assembly model, a Hopfield
+  associative memory and a random Boolean network, accretion reaches the
+  substrate's critical point when new elements degrade existing ones and not
+  otherwise. Includes reproductions of Grilli, Rogers and Allesina (2016) and of
+  Biroli, Bunin and Cammarota (2018), both credited as reproductions, together
+  with the negative results and the corrections that overturned two earlier
+  claims.
+keywords:
+  - complexity
+  - self-organised criticality
+  - stability
+  - Lotka-Volterra
+  - random matrix theory
+  - Hopfield networks
+  - early-warning signals
+license: MIT

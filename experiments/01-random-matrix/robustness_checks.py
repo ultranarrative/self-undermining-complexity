@@ -1,4 +1,17 @@
-"""Test the three empirical claims in the critique against the model."""
+"""
+Robustness checks on sections 2 and 3.
+
+Three things the headline numbers could have been, and were not, or were:
+
+  1. Is the shortfall at q = 1 a finding, or just an extreme-value effect from
+     taking the worst of four independent blocks?
+  2. Is the apparent compartment ceiling real, or an artefact of where the
+     detection threshold was set?
+  3. Does conditioning on stable draws bias the comparison, since that filter is
+     stronger at high modularity?
+
+Two of the three overturned what had already been written up.
+"""
 import sys, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "src"))
 import json

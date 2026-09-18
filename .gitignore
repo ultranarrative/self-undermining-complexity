@@ -15,3 +15,6 @@ site/logo.b64
 __pycache__/
 *.pyc
 .DS_Store
+
+# Working notes. Tracked while this repo was private; removed at the public flip.
+private/

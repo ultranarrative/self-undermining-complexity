@@ -120,6 +120,6 @@ eigenvalue approaches zero. There is no percolation threshold between `q = 0.99`
 
 ```bash
 python run.py             # sections 1 to 3, ~3 min, writes results/
-python critique_check.py  # the three checks behind sections 2 and 3
+python robustness_checks.py  # the three checks behind sections 2 and 3
 python figures.py         # redraws figures/ from saved results
 ```
