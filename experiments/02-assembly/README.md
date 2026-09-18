@@ -9,6 +9,21 @@ Nothing tunes the system toward the boundary.
 
 ![Assembly](figures/fig6_assembly.png)
 
+## This reproduces a known result
+
+Biroli, Bunin and Cammarota (2018) established that these systems self-adapt to remain
+marginally stable, shedding species until they saturate May's bound, and that this emerges
+from the dynamics rather than being imposed. The convergence reported below, where every
+interaction strength reaches the same scale-free distance from the boundary while reaching
+different richness, is that same statement seen from a different angle: saturating the
+bound is what makes the endpoint independent of sigma.
+
+So the mechanism here is real and it is not new. What the reproduction buys is a validated
+instrument and one argument that the original papers do not make, in the common-cause
+section below. Whether the *graded containment* result in
+[experiment 01](../01-random-matrix/) is novel has not been checked against Grilli et al.
+(2016) in detail, and should not be assumed either way.
+
 ## The model
 
 Generalized Lotka-Volterra, `dN_i/dt = N_i (K_i - sum_j A_ij N_j)` with `A_ii = 1`.

@@ -24,9 +24,9 @@ about scope and cosmology rather than about mechanism.
 So this repository is the science the thesis stands on. Three things have to hold.
 
 **The mechanism has to be endogenous.** Fragility must come from the process that builds
-complexity, not from wear, shock or exhaustion arriving afterwards. Settled affirmatively
-in one model class by [experiment 02](experiments/02-assembly/): a community that grows
-its own complexity drives its leading eigenvalue to the boundary with nothing pushing it.
+complexity, not from wear, shock or exhaustion arriving afterwards. True in one model
+class, shown by [experiment 02](experiments/02-assembly/) and established before that by
+Biroli, Bunin and Cammarota (2018). Reproduced here, not discovered here.
 
 **It has to be generic.** One model class is an existence proof, not a structural claim.
 The mechanism has to recur in systems that share no physics with each other, and it has
