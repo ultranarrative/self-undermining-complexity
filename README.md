@@ -99,8 +99,8 @@ That is good news for the thesis and bad news for this formalization of it.
 
 | Claim | Status | Where |
 |---|---|---|
-| P1. Maintenance cost grows superlinearly, so marginal returns fall past `C*` | **Untested.** No model here has a maintenance cost in it yet | |
-| P2. Variance and autocorrelation rise before collapse | **Untested** | |
+| P1. Maintenance cost grows superlinearly, so marginal returns fall past `C*` | **Partly supported.** Superlinear cost alone only shrinks the system. Collapse also needs the cost to fall on survivors, and then `C*` is real | [05](experiments/05-maintenance-cost/) |
+| P2. Variance and autocorrelation rise before collapse | **False here.** Variance discriminates collapse from survival by 0.04, autocorrelation by -0.14, on 61 collapsing and 88 surviving runs | [05](experiments/05-maintenance-cost/) |
 | P3. Large failures become more common as coupling rises | **Supported.** Largest cascade per arrival grows with richness at every interaction strength | [02](experiments/02-assembly/) |
 | P4. At equal complexity, modular systems outlast integrated ones | **False as stated**, and already known false analytically | [01](experiments/01-random-matrix/) |
 | Complexification drives a system to its own stability boundary | **Supported.** Scale-free distance falls from 0.84 to 0.03 during assembly | [02](experiments/02-assembly/) |
@@ -138,6 +138,7 @@ modularity reaches the same marginal state.
 | [**02. Grown**](experiments/02-assembly/) | Does a community that grows its own complexity walk to the edge? | Yes, and with no help |
 | [**03. Grown into compartments**](experiments/03-compartmental-assembly/) | Does containment survive at the endpoint assembly picks? | No. Walls do not slow criticality, and only complete separation contains damage there |
 | [**04. Other substrates**](experiments/04-substrates/) | Does self-driven criticality appear in systems with no ecology in them? | In two of three. The one that fails shows what the necessary ingredient is |
+| [**05. Maintenance cost**](experiments/05-maintenance-cost/) | Does a maintenance cost produce a threshold, and does anything warn you? | Only if survivors carry it. And nothing warns you |
 
 ### Where the programme has got to
 
@@ -153,6 +154,15 @@ that does not converge, or one without interference that does.
 
 What it does not reach, and no experiment here can, is whether the universe is such a
 system.
+
+Two further results bear on the thesis as originally formalised. The superlinear
+maintenance exponent that P1 rests on is not the operative ingredient: cost that scales
+with size merely shrinks a system, and collapse requires instead that the cost fall on
+whoever is left, so that losing members raises the burden on the rest. And the early
+warnings P2 relies on do not work here, for a reason that follows from the rest of the
+programme: a system permanently at marginality has nothing left to slow down from, so
+critical slowing down cannot signal anything. **A system of this kind walks to its own
+edge, and gives no notice when it goes over.**
 
 Each experiment directory is self-contained: its own README stating what it asked and
 what it found, its own scripts, saved results and figures.
