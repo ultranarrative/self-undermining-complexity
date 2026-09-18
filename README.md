@@ -166,6 +166,17 @@ cd experiments/02-assembly && ../../.venv/bin/python run_assembly.py
   first pass at P2 had 12 collapses and showed variance rising in 0.75 of them against
   0.31 of survivals, which looks decisive. At 61 it is 0.54 against 0.50.
 
+## How this was built
+
+The models, experiments, figures and prose here were written with AI assistance, which is
+recorded in the trailer on every commit. The questions, the experimental designs, the
+decisions about what counted as a control and what counted as a refutation, and the claims
+made in this repository are mine, as are any errors in them.
+
+Everything is stated so that it can be checked rather than taken on trust: fixed seeds, the
+controls alongside the results they qualify, and the two overturned claims left visible in
+the history rather than quietly removed.
+
 ## Licence
 
 Code under MIT, prose and figures under CC BY 4.0. See [LICENSE](LICENSE).
