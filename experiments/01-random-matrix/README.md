@@ -57,6 +57,12 @@ Same sweep, `S = 100`, four compartments, link budget fixed:
 | 0.90 | 1.000 |
 | 1.00 | 0.972 |
 
+**Superseded analytically.** Patil, Aguirre-Lopez and Bouchaud (2024) derive the boundary
+of the eigenvalue spectrum, including the eigenvalues of extremal real part, for a block
+ensemble considerably more general than the one simulated here. Stefano Allesina pointed
+this out in correspondence. What follows is a numerical special case of a solved problem,
+and is retained because it validates the instrument, not because it establishes anything.
+
 This follows from the construction, and saying so is the honest framing. Packing the
 same links into smaller blocks raises within-block density by exactly enough to cancel
 the size reduction, so `sigma*sqrt(S_b C_w)` is invariant and the eigenvalue disk keeps

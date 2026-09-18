@@ -33,7 +33,9 @@ nothing left to slow down from.
 Stated up front because it is the first thing worth knowing. Several results here were
 established before this repository existed and are reproduced rather than discovered:
 
-- Modularity does not stabilise at equal connectance: **Grilli, Rogers & Allesina (2016)**.
+- Modularity does not stabilise at equal connectance: **Grilli, Rogers & Allesina (2016)**,
+  with the spectral boundary of block-structured ensembles since derived analytically and
+  far more generally by **Patil, Aguirre-Lopez & Bouchaud (2024)**.
 - Assembled communities sit at marginal stability: **Biroli, Bunin & Cammarota (2018)**.
 - Resource constraint as a condition for self-organisation is established in the
   self-organised criticality literature, and the Hopfield result sits adjacent to the
@@ -192,6 +194,7 @@ Derrida, B. & Pomeau, Y. (1986). Random networks of automata: a simple annealed 
 Grilli, J., Rogers, T. & Allesina, S. (2016). Modularity and stability in ecological communities. *Nat. Commun.* 7, 12031.
 Kauffman, S. A. (1969). Metabolic stability and epigenesis in randomly constructed genetic nets. *J. Theor. Biol.* 22, 437-467.
 May, R. M. (1972). Will a large complex system be stable? *Nature* 238, 413-414.
+Patil, N., Aguirre-Lopez, F. & Bouchaud, J.-P. (2024). The spectral boundary of block structured random matrices. arXiv:2312.11149.
 McCann, K. S. (2000). The diversity-stability debate. *Nature* 405, 228-233.
 Scheffer, M. et al. (2009). Early-warning signals for critical transitions. *Nature* 461, 53-59.
 Stouffer, D. B. & Bascompte, J. (2011). Compartmentalization increases food-web persistence. *PNAS* 108, 3648-3652.
