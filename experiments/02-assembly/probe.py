@@ -1,4 +1,7 @@
-import numpy as np, assembly
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "src"))
+import numpy as np
+from suc import assembly
 print("larger pool, so the ceiling is set by the dynamics and not by supply")
 print(f"{'sigma':>6} {'pool':>6} {'rich':>6} {'lead Re':>10} {'spread':>8} {'aval/step':>10} {'max aval':>9}")
 for sigma in (0.6, 0.9, 1.2, 1.5, 1.8):

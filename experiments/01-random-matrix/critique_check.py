@@ -1,7 +1,9 @@
 """Test the three empirical claims in the critique against the model."""
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "src"))
 import json
 import numpy as np
-import may
+from suc import may
 
 SEED = 20260918
 C, M, S = 0.2, 4, 100

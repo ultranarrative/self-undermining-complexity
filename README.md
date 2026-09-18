@@ -1,249 +1,100 @@
-# Does a community walk itself to the edge of stability?
+# Self-undermining complexity
 
-**Yes, and it needs no help.** A community that grows its own complexity, one arriving
-species at a time, drives its leading eigenvalue from 0.84 of the bulk spectrum down to
-0.03 of it. Every interaction strength tested converges on the same endpoint while
-reaching very different complexities. Nothing tunes the system toward the boundary. The
-largest cascade a single new arrival can trigger grows alongside it.
+Does complexity generate its own fragility? This is the working repository for that
+question: models, experiments, negative results and corrections, kept in one place so
+the reasoning stays auditable.
 
-![Assembly](figures/fig6_assembly.png)
+## The thesis
 
-**Compartmentalizing does not move that boundary, and this was already known.** At a
-fixed link budget, walls do not raise the stability threshold. Grilli, Rogers and
-Allesina (2016) proved that analytically. What compartments do instead is cap the reach
-of a failure: at the same distance to the boundary, the worst single perturbation moves
-99% of an integrated community and 24% of a fully compartmentalized one, which is exactly
-the share inside one compartment. That cap is graded, and it weakens as the system
-approaches criticality.
+In systems whose complexity is sustained by finite throughput, the growth of complexity
+tends to undermine the processes that sustain it.
 
-![Main result](figures/fig2_main.png)
+One candidate formalization, the Maintenance Thesis, stipulates three ingredients:
+the benefit of complexity levels off, maintenance cost grows faster than linearly, and
+coupling between components rises with complexity. Together these give a threshold `C*`
+past which net returns turn negative and large failures become more likely, with
+modularity as the escape clause.
 
-Sections 1 to 3 are the random-matrix work, which is largely a reproduction and a
-falsification. Section 4 is the assembly experiment, which is where anything new is.
+**Experiment 02 suggests that formalization is over-specified.** A model with none of
+those three ingredients, and no maintenance cost at all, still drives itself to marginal
+stability. The mechanism appears to be simpler and more general than the thesis proposes.
 
-## Why this matters
+## Status of each prediction
 
-The Maintenance Thesis predicts that at equal complexity, modular systems outlast
-integrated ones (P4). Under local stability that is false, and it was already known to
-be false. What survives is weaker and more specific: modularity caps failure size at
-roughly 1/m without touching failure probability, which collapses P3 and P4 into a
-single prediction rather than two. It also protects least where protection matters
-most, since the containment advantage is small far from the boundary and the walls
-leak as the system approaches its own limit.
+| Claim | Status | Where |
+|---|---|---|
+| P1. Maintenance cost grows superlinearly, so marginal returns fall past `C*` | **Untested.** No model here has a maintenance cost in it yet | |
+| P2. Variance and autocorrelation rise before collapse | **Untested** | |
+| P3. Large failures become more common as coupling rises | **Supported.** Largest cascade per arrival grows with richness at every interaction strength | [02](experiments/02-assembly/) |
+| P4. At equal complexity, modular systems outlast integrated ones | **False as stated**, and already known false analytically | [01](experiments/01-random-matrix/) |
+| Complexification drives a system to its own stability boundary | **Supported.** Scale-free distance falls from 0.84 to 0.03 during assembly | [02](experiments/02-assembly/) |
+| Modularity caps failure size | **Supported**, at roughly `1/m`, but the cap is graded and degrades toward criticality | [01](experiments/01-random-matrix/) |
+| Assembly raises the propagation scale | **Not supported.** Reach rises with complexity as a size effect; a matched random draw has the same reach | [02](experiments/02-assembly/) |
 
-## The model
+## The claim the two experiments make together
 
-May's original community matrix. `S` species, `-d` on the diagonal, off-diagonal
-entries nonzero with probability `C` and drawn from `N(0, sigma^2)`, with `A_ij`
-and `A_ji` drawn independently. The system is locally stable iff every eigenvalue
-has negative real part, which for large `S` happens iff `sigma*sqrt(SC) < d`.
+Neither experiment establishes this on its own, and it is the most interesting thing
+here, so it is stated as an open hypothesis rather than a result:
 
-The extension adds `m` compartments and a modularity knob `q`:
+> **Modularity's protection fails precisely at the state that assembly selects for.**
+> Experiment 01 shows that containment, modularity's only real benefit, weakens as a
+> system approaches criticality. Experiment 02 shows that a system which grows its own
+> complexity ends up at criticality without being put there. If both hold in one model,
+> then walls stop working exactly where complexification lands.
 
-| `q` | within-compartment | between-compartment | links across walls |
-|---|---|---|---|
-| 0.00 | C | C | ~1500 |
-| 0.50 | 2.1C | 0.5C | ~750 |
-| 0.90 | 3.7C | 0.02C | ~150 |
-| 0.99 | 4.1C | 0.002C | ~15 |
-| 1.00 | 4.1C | 0 | 0 |
+The two halves currently use different models, a random community matrix and generalized
+Lotka-Volterra, so their eigenvalue scales are not comparable and this is a qualitative
+convergence rather than a computed result. **The experiment that would settle it is
+assembly into compartments:** run the grown model with block structure and measure
+whether containment still holds at the endpoint the community picks for itself. That is
+experiment 03.
 
-`q` redistributes links inward while holding the **expected total link count
-constant**. That constraint is what makes this a test of structure rather than a
-restatement of May's result that fewer links are more stable.
+## Experiments
 
-## Results
+| | Question | Answer |
+|---|---|---|
+| [**01. Drawn**](experiments/01-random-matrix/) | Does compartmentalization move May's stability bound? | No, and it was already known. It caps damage instead, gradedly |
+| [**02. Grown**](experiments/02-assembly/) | Does a community that grows its own complexity walk to the edge? | Yes, and with no help |
+| **03. Grown into compartments** | Does containment survive at the endpoint assembly picks? | Not yet run |
 
-All numbers from seed `20260918`. `python run.py` reproduces them exactly.
+Each experiment directory is self-contained: its own README stating what it asked and
+what it found, its own scripts, saved results and figures.
 
-### 1. The bound reproduces
+## Layout
 
-Transition point (where P(stable) crosses 0.5) against system size, predicted at 1:
-
-| S | transition |
-|---|---|
-| 50 | 1.092 |
-| 100 | 1.036 |
-| 200 | 1.026 |
-
-Converging on 1 from above as finite-size effects shrink. ([figure](figures/fig1_may_bound.png))
-
-### 2. Compartments do not move the threshold
-
-Same sweep, `S = 100`, four compartments, link budget fixed:
-
-| modularity `q` | transition |
-|---|---|
-| 0.00 | 1.045 |
-| 0.50 | 1.040 |
-| 0.90 | 1.000 |
-| 1.00 | 0.972 |
-
-This follows from the construction, and saying so is the honest framing. Packing the
-same links into smaller blocks raises within-block density by exactly enough to cancel
-the size reduction, so `sigma*sqrt(S_b C_w)` is invariant and the eigenvalue disk keeps
-its radius. The spectra show it directly. ([figure](figures/fig3_spectra.png))
-
-The shortfall at `q = 1` is not a separate finding. It is an extreme-value effect: four
-independent blocks are all stable with probability `p^4`, so the aggregate curve crosses
-0.5 where each block is at `p = 0.841`, which is earlier. Tested directly, a single block
-of 25 species at the rescaled connectance, raised to the fourth power, predicts a
-transition at 0.981 against a measured 0.978, with mean absolute error 0.009 across the
-sweep. ([figure](figures/fig5_extreme_value.png))
-
-### 3. Compartments cap the reach of a failure, and the cap is graded
-
-Worst-case share of the community moved by a sustained press on one species, compared
-at **matched distance to the stability boundary** rather than at matched
-`sigma*sqrt(SC)`, because conditioning on stable draws is a stronger filter at high `q`
-and would otherwise bias the comparison:
-
-| leading Re(λ) | q = 0.00 | q = 0.50 | q = 0.99 | q = 1.00 |
-|---|---|---|---|---|
-| -0.50 | 0.211 | 0.198 | 0.157 | 0.156 |
-| -0.20 | 0.718 | 0.701 | 0.312 | 0.229 |
-| -0.07 | 0.943 | 0.940 | 0.581 | 0.240 |
-| -0.01 | 0.991 | 0.992 | 0.813 | 0.242 |
-
-Three things read off this. Far from the boundary, structure barely matters. Only
-`q = 1` gives a hard cap, and it is exact rather than statistical, because `-A^-1` is
-block diagonal and damage cannot leave the compartment it started in. And the
-containment advantage of partial separation is real but **degrades as the system
-approaches criticality**: `q = 0.99` holds damage to 31% at a comfortable margin and
-loses it to 81% at the edge. ([figure](figures/fig4_correction.png))
-
-An earlier version of this README claimed containment was all-or-nothing, on the basis
-that `q = 0.99` tracked the compartment ceiling and then left it. That was an artefact
-of the detection threshold. At a threshold of 0.01 rather than 0.10, `q = 0.99` sits
-above the ceiling at every point in the sweep. The mechanism is gain, not connectivity:
-one cross link makes the inverse dense, so influence always reaches everywhere, and what
-changes near the boundary is magnitude, since `||A^-1||` diverges as the leading
-eigenvalue approaches zero. There is no percolation threshold between `q = 0.99` and
-`q = 1.00` to locate. The only structural discontinuity is at exactly zero cross links.
-
-### 4. Grown, not drawn: complexity walks itself to the edge
-
-Everything above uses a matrix that was drawn. This section grows one. Species arrive
-one at a time from a fixed pool under generalized Lotka-Volterra dynamics, the community
-is re-solved to its saturated equilibrium after each arrival, and anything that cannot
-hold a positive abundance is dropped. Nothing tunes the system toward the boundary.
-
-![Assembly](figures/fig6_assembly.png)
-
-**The community drives its own leading eigenvalue to zero.** Reported scale-free, as the
-ratio of the leading real part to the bulk of the Jacobian spectrum, because abundances
-change during assembly and the raw eigenvalue would drift toward zero for reasons that
-have nothing to do with stability:
-
-| interaction spread | ratio at richness ~12 | at maximum richness | richness reached |
-|---|---|---|---|
-| 0.6 | 0.835 | 0.035 | 373 |
-| 0.9 | 0.756 | 0.025 | 309 |
-| 1.2 | 0.648 | 0.028 | 231 |
-| 1.5 | 0.624 | 0.037 | 151 |
-
-Every value of sigma converges on the same endpoint, near 0.03, while reaching very
-different complexities. Communities trade richness against interaction strength and
-arrive at the same distance from their own boundary either way.
-
-**Large failures grow with complexity (P3).** The largest cascade triggered by a single
-arrival rises with richness at every sigma, from 0 to 2 at sigma = 0.6 and from 0 to 10
-at sigma = 1.5. This is the one Maintenance Thesis prediction that survives intact.
-
-**Assembly does not raise reach (negative result).** Worst-case press spread rises
-steeply with richness, from 0.26 to 0.56 at sigma = 1.2. But the same number of species
-drawn at random from the same pool gives the same reach, and usually slightly more. The
-propagation scale rises with complexity as a size effect, not because assembly selects
-for far-reaching structure. The interesting version of this claim is the one that failed.
-
-### What this does to the thesis
-
-The Maintenance Thesis stipulates three ingredients: benefit levels off, maintenance cost
-grows faster than linearly, and coupling rises with complexity. The assembly model has
-none of them. There is no maintenance cost in it at all. It still drives itself to
-marginal stability, which means the thesis is over-specified: the mechanism is simpler
-and more general than the one it proposes, and inserting a cost function to produce
-collapse would be assuming the conclusion.
-
-Total abundance is sublinear in richness at sigma = 0.6 and superlinear at sigma >= 0.9,
-so P1 is parameter-dependent rather than a fact about complex systems, and total
-abundance is a weak proxy for benefit in any case.
-
-### What this does to *Destructive Potential*
-
-Equation (7) gives `E = ς · [Φ_E + Tσ̇] · [1 + λ⁺max]` with `λ⁺ = max(λmax, 0)`. Two
-things follow from the assembly result.
-
-First, `λ⁺` is exactly 0 throughout the stable regime, so the amplification factor is
-pinned at exactly 1 everywhere below criticality. Theorem 3.3 concludes that E is
-minimised at the edge of chaos from that factor being approximately 1, but it is exactly
-1 across the whole stable region and therefore cannot discriminate between the edge and
-anywhere else.
-
-Second, ς rises with complexity while the system drives itself toward the point where
-`λ⁺` stops being 0. So E rises with complexity through the propagation scale, and the
-system parks itself exactly where the amplification factor is about to start growing.
-The note's earlier diagnosis was that Processism needs a maintenance cost term that rises
-with C. It may not. ς already rises with C, and the papers simply never let it vary.
-
-## Limits
-
-- **Nothing here complexifies.** The matrix is drawn, not grown. This model cannot test
-  the claim that complexification generates its own fragility, because no complexity is
-  generated. Testing that needs assembly: species arriving one at a time, the community
-  keeping what persists, and a check on whether it walks itself toward the boundary
-  rather than being placed near it. Bunin (2017) and Biroli, Bunin and Cammarota (2018)
-  are the place to start, since both find phases where equilibria sit marginally stable.
-- **Local stability only.** Linear stability at a fixed point, not persistence under
-  nonlinear dynamics. Stouffer and Bascompte (2011) measured persistence in dynamical
-  food-web models. This result does not contradict them. It shows the local-stability
-  route does not reproduce their conclusion, so whatever drives it is dynamical.
-- **No sign structure.** `A_ij` and `A_ji` are independent, so there are no
-  predator-prey pairs. Allesina and Tang (2012) showed sign structure moves the bound
-  substantially.
-- **The spread measure carries a threshold.** "Moved" means a response at least 10% of
-  the pressed species' own response. The absolute numbers depend on that choice, as
-  section 3 shows. The ordering across `q` does not.
-- **Uniform self-regulation, one size.** Every species gets the same `d`, and
-  experiments 2 and 3 use `S = 100`, `m = 4` only.
-- **Assembly finds the saturated equilibrium, not the dynamical attractor.** Section 4
-  solves for equilibrium by iterative removal rather than integrating the ODEs. That is
-  the standard construction and it is fast, but it assumes the community settles to that
-  equilibrium rather than to a limit cycle or a chaotic attractor.
-- **The high-richness bins saturate the pool.** Mean cascade size falls in the last bin
-  at sigma = 0.9 and 1.2 because few uninvaded species remain, not because cascades
-  became rarer. Maximum cascade size is the measure to read there.
-
-## Next
-
-1. **Integrate the ODEs for a subset of assembly histories** to check that the saturated
-   equilibrium is where the dynamics actually go.
-2. **Sweep `m` and measure what small compartments cost.** Capping damage at 1/m has to
-   cost something, or every system would be maximally compartmentalized. Finding that
-   cost is what would turn this from an observation into a law, and it is the most
-   valuable experiment left.
-3. **Test the criticality dependence properly.** The prediction is that the apparent
-   containment threshold moves with the detection threshold and with distance to the
-   bound, and that it is a statement about gain rather than structure.
-4. **Repeat result 2 with predator-prey sign structure** (Allesina & Tang 2012), which
-   may change the answer.
-5. **Vary the arrival process.** Every result in section 4 uses random arrival order.
-   Whether ordered or adversarial invasion changes the endpoint is untested.
+```
+src/suc/          models and shared measures, imported by every experiment
+  may.py          random community matrix, stability, press perturbation
+  assembly.py     generalized Lotka-Volterra assembly
+  figstyle.py     shared figure style
+experiments/      one directory per experiment, self-contained
+site/             the password-gated lab note built from experiment 01
+```
 
 ## Running it
 
 ```bash
 python -m venv .venv && .venv/bin/pip install -r requirements.txt
-.venv/bin/python run.py             # ~3 min, writes results/*.json
-.venv/bin/python critique_check.py  # the three checks behind sections 2 and 3
-.venv/bin/python run_assembly.py    # section 4, ~1 min
-.venv/bin/python controls.py        # the two controls behind section 4
-.venv/bin/python figures.py         # redraws figures/ from saved results
 ```
 
-`may.py` and `assembly.py` are the two models and their measures. `run.py`,
-`critique_check.py`, `run_assembly.py` and `controls.py` are the experiments.
-`figures.py` only draws.
+Then run any experiment from its own directory. Scripts put `src/` on the path
+themselves, so nothing needs installing:
+
+```bash
+cd experiments/02-assembly && ../../.venv/bin/python run_assembly.py
+```
+
+## House rules for this repository
+
+- **Every result gets a control before it gets believed.** Both headline measures in
+  experiment 02 have one: a scale-free reading so shrinking abundances cannot fake the
+  walk to the edge, and a matched random draw so community size cannot fake reach. The
+  second control killed a result I wanted.
+- **Negative results stay in**, with the same prominence as positive ones.
+- **Corrections are commits, not edits.** Experiment 01's containment claim was wrong in
+  the first version and the history says so.
+- **Check the literature before claiming novelty.** Result 2 of experiment 01 turned out
+  to be a numerical instance of a theorem proved in 2016.
 
 ## References
 

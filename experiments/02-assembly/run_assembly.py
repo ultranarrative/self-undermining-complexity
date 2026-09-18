@@ -6,9 +6,11 @@ Every measure here is reported scale-free or against a matched null, because the
 obvious version of each is an artefact waiting to happen.
 """
 from __future__ import annotations
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "src"))
 import json, time
 import numpy as np
-import assembly
+from suc import assembly
 
 SEED, POOL, MU, STEPS, REPS = 20260918, 400, 0.5, 1200, 5
 SIGMAS = [0.6, 0.9, 1.2, 1.5]

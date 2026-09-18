@@ -9,12 +9,14 @@ Every number this prints comes from SEED. Change nothing else and it reproduces.
 """
 from __future__ import annotations
 
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "src"))
 import json
 import time
 
 import numpy as np
 
-import may
+from suc import may
 
 SEED = 20260918
 C = 0.2          # connectance, held fixed everywhere

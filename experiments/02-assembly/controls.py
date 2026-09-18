@@ -1,5 +1,8 @@
 """Two controls on the assembly result, before it gets believed."""
-import numpy as np, assembly
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "src"))
+import numpy as np
+from suc import assembly
 
 SEED, POOL, MU, SIGMA, STEPS = 20260918, 500, 0.5, 1.2, 2000
 rng = np.random.default_rng(SEED)
