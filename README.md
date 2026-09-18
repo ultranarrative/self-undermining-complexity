@@ -1,21 +1,30 @@
 # Does modularity move May's bound?
 
-**At a fixed link budget, compartmentalizing a random community does not make it
-more likely to be stable. It drifts slightly the other way.** What compartments do
-instead is cap the size of a failure: near the stability boundary, the worst single
-perturbation moves 91% of an integrated community and 24% of a fully
+**At a fixed link budget, compartmentalizing a random community does not move the
+local-stability threshold.** What compartments do instead is cap the reach of a
+failure: compared at the same distance to the stability boundary, the worst single
+perturbation moves 99% of an integrated community and 24% of a fully
 compartmentalized one, which is exactly the share of the community inside one
 compartment.
 
 ![Main result](figures/fig2_main.png)
 
+**Result 2 is a numerical instance of a known theorem.** Grilli, Rogers and Allesina
+(2016) proved analytically that modularity does not generally stabilize ecological
+communities, with moderate stabilizing effects only for particular parameter choices.
+This repository reproduces that conclusion by simulation and shows the mechanism in
+the spectra. The contribution here, if there is one, is result 3 and its dependence on
+proximity to criticality, not result 2.
+
 ## Why this matters
 
 The Maintenance Thesis predicts that at equal complexity, modular systems outlast
-integrated ones (P4). That prediction is false if "outlast" means local stability,
-and the experiment below says so. It is true, and sharply so, if "outlast" means
-bounded damage. P4 needs restating in those terms before it is worth testing on
-anything harder.
+integrated ones (P4). Under local stability that is false, and it was already known to
+be false. What survives is weaker and more specific: modularity caps failure size at
+roughly 1/m without touching failure probability, which collapses P3 and P4 into a
+single prediction rather than two. It also protects least where protection matters
+most, since the containment advantage is small far from the boundary and the walls
+leak as the system approaches its own limit.
 
 ## The model
 
@@ -54,7 +63,7 @@ Transition point (where P(stable) crosses 0.5) against system size, predicted at
 
 Converging on 1 from above as finite-size effects shrink. ([figure](figures/fig1_may_bound.png))
 
-### 2. P4 as written is false
+### 2. Compartments do not move the threshold
 
 Same sweep, `S = 100`, four compartments, link budget fixed:
 
@@ -65,75 +74,101 @@ Same sweep, `S = 100`, four compartments, link budget fixed:
 | 0.90 | 1.000 |
 | 1.00 | 0.972 |
 
-Modularity buys no stability, and full compartmentalization is marginally worse.
-The reason is visible in the spectra: packing the same links into smaller blocks
-raises within-block density by exactly enough to cancel the size reduction, so the
-eigenvalue disk has the same radius. Taking the worst of four blocks then costs a
-little. ([figure](figures/fig3_spectra.png))
+This follows from the construction, and saying so is the honest framing. Packing the
+same links into smaller blocks raises within-block density by exactly enough to cancel
+the size reduction, so `sigma*sqrt(S_b C_w)` is invariant and the eigenvalue disk keeps
+its radius. The spectra show it directly. ([figure](figures/fig3_spectra.png))
 
-### 3. Containment is where modularity pays, and it is all-or-nothing
+The shortfall at `q = 1` is not a separate finding. It is an extreme-value effect: four
+independent blocks are all stable with probability `p^4`, so the aggregate curve crosses
+0.5 where each block is at `p = 0.841`, which is earlier. Tested directly, a single block
+of 25 species at the rescaled connectance, raised to the fourth power, predicts a
+transition at 0.981 against a measured 0.978, with mean absolute error 0.009 across the
+sweep. ([figure](figures/fig5_extreme_value.png))
 
-Worst-case share of the community moved by a sustained press on one species, at
-`sigma*sqrt(SC) = 0.95`:
+### 3. Compartments cap the reach of a failure, and the cap is graded
 
-| modularity `q` | worst-case spread |
-|---|---|
-| 0.00 | 0.910 |
-| 0.50 | 0.910 |
-| 0.90 | 0.913 |
-| 0.99 | 0.686 |
-| 1.00 | 0.242 |
+Worst-case share of the community moved by a sustained press on one species, compared
+at **matched distance to the stability boundary** rather than at matched
+`sigma*sqrt(SC)`, because conditioning on stable draws is a stronger filter at high `q`
+and would otherwise bias the comparison:
 
-The compartment ceiling is 0.242, and `q = 1.00` sits exactly on it: damage cannot
-leave the compartment it started in, because `-A^-1` is block diagonal.
+| leading Re(λ) | q = 0.00 | q = 0.50 | q = 0.99 | q = 1.00 |
+|---|---|---|---|---|
+| -0.50 | 0.211 | 0.198 | 0.157 | 0.156 |
+| -0.20 | 0.718 | 0.701 | 0.312 | 0.229 |
+| -0.07 | 0.943 | 0.940 | 0.581 | 0.240 |
+| -0.01 | 0.991 | 0.992 | 0.813 | 0.242 |
 
-The surprise is `q = 0.99`. Ninety-nine percent of the walls are sealed, roughly
-15 links remain out of 1500, and the worst perturbation still reaches 69% of the
-community. Partial compartmentalization is not partial containment. The barrier has
-to be complete.
+Three things read off this. Far from the boundary, structure barely matters. Only
+`q = 1` gives a hard cap, and it is exact rather than statistical, because `-A^-1` is
+block diagonal and damage cannot leave the compartment it started in. And the
+containment advantage of partial separation is real but **degrades as the system
+approaches criticality**: `q = 0.99` holds damage to 31% at a comfortable margin and
+loses it to 81% at the edge. ([figure](figures/fig4_correction.png))
+
+An earlier version of this README claimed containment was all-or-nothing, on the basis
+that `q = 0.99` tracked the compartment ceiling and then left it. That was an artefact
+of the detection threshold. At a threshold of 0.01 rather than 0.10, `q = 0.99` sits
+above the ceiling at every point in the sweep. The mechanism is gain, not connectivity:
+one cross link makes the inverse dense, so influence always reaches everywhere, and what
+changes near the boundary is magnitude, since `||A^-1||` diverges as the leading
+eigenvalue approaches zero. There is no percolation threshold between `q = 0.99` and
+`q = 1.00` to locate. The only structural discontinuity is at exactly zero cross links.
 
 ## Limits
 
-Worth being explicit, because each of these is a way the result could be wrong or
-too narrow:
-
-- **Local stability only.** This is linear stability at a fixed point, not
-  persistence under nonlinear dynamics. Stouffer and Bascompte (2011) measured
-  persistence in dynamical food-web models, which is a harder and different
-  question. This result does not contradict them. It shows that the local-stability
+- **Nothing here complexifies.** The matrix is drawn, not grown. This model cannot test
+  the claim that complexification generates its own fragility, because no complexity is
+  generated. Testing that needs assembly: species arriving one at a time, the community
+  keeping what persists, and a check on whether it walks itself toward the boundary
+  rather than being placed near it. Bunin (2017) and Biroli, Bunin and Cammarota (2018)
+  are the place to start, since both find phases where equilibria sit marginally stable.
+- **Local stability only.** Linear stability at a fixed point, not persistence under
+  nonlinear dynamics. Stouffer and Bascompte (2011) measured persistence in dynamical
+  food-web models. This result does not contradict them. It shows the local-stability
   route does not reproduce their conclusion, so whatever drives it is dynamical.
-- **No sign structure.** `A_ij` and `A_ji` are independent, so the matrix contains
-  no predator-prey pairs. Allesina and Tang (2012) showed sign structure moves the
-  bound substantially. Adding it is the obvious next experiment and may well change
-  the answer to question 2.
-- **Uniform self-regulation.** Every species gets the same `d`. Heterogeneous
-  self-regulation is known to matter.
-- **One size.** Experiments 2 and 3 use `S = 100`, `m = 4` only.
+- **No sign structure.** `A_ij` and `A_ji` are independent, so there are no
+  predator-prey pairs. Allesina and Tang (2012) showed sign structure moves the bound
+  substantially.
+- **The spread measure carries a threshold.** "Moved" means a response at least 10% of
+  the pressed species' own response. The absolute numbers depend on that choice, as
+  section 3 shows. The ordering across `q` does not.
+- **Uniform self-regulation, one size.** Every species gets the same `d`, and
+  experiments 2 and 3 use `S = 100`, `m = 4` only.
 
 ## Next
 
-1. Repeat experiment 2 with predator-prey sign structure (Allesina & Tang 2012).
-2. Sweep compartment count `m` and compartment size, to see whether the ceiling
-   trades against anything.
-3. Locate the containment threshold in experiment 3 properly. It sits somewhere
-   between `q = 0.99` and `q = 1.00`, which suggests a percolation threshold in the
-   between-compartment graph rather than a smooth effect.
+1. **Sweep `m` and measure what small compartments cost.** Capping damage at 1/m has to
+   cost something, or every system would be maximally compartmentalized. Finding that
+   cost is what would turn this from an observation into a law, and it is the most
+   valuable experiment left.
+2. **Test the criticality dependence properly.** The prediction is that the apparent
+   containment threshold moves with the detection threshold and with distance to the
+   bound, and that it is a statement about gain rather than structure.
+3. **Repeat result 2 with predator-prey sign structure** (Allesina & Tang 2012), which
+   may change the answer.
+4. **Move to assembly models** per the first limit above.
 
 ## Running it
 
 ```bash
 python -m venv .venv && .venv/bin/pip install -r requirements.txt
-.venv/bin/python run.py       # ~3 min, writes results/*.json
-.venv/bin/python figures.py   # redraws figures/ from saved results
+.venv/bin/python run.py             # ~3 min, writes results/*.json
+.venv/bin/python critique_check.py  # the three checks behind sections 2 and 3
+.venv/bin/python figures.py         # redraws figures/ from saved results
 ```
 
-`may.py` is the model and the measures. `run.py` is the experiments. `figures.py`
-only draws.
+`may.py` is the model and the measures. `run.py` and `critique_check.py` are the
+experiments. `figures.py` only draws.
 
 ## References
 
 Allesina, S. & Tang, S. (2012). Stability criteria for complex ecosystems. *Nature* 483, 205-208.
 Bender, E. A., Case, T. J. & Gilpin, M. E. (1984). Perturbation experiments in community ecology. *Ecology* 65, 1-13.
+Biroli, G., Bunin, G. & Cammarota, C. (2018). Marginally stable equilibria in critical ecosystems. *New J. Phys.* 20, 083051.
+Bunin, G. (2017). Ecological communities with Lotka-Volterra dynamics. *Phys. Rev. E* 95, 042414.
+Grilli, J., Rogers, T. & Allesina, S. (2016). Modularity and stability in ecological communities. *Nat. Commun.* 7, 12031.
 May, R. M. (1972). Will a large complex system be stable? *Nature* 238, 413-414.
 McCann, K. S. (2000). The diversity-stability debate. *Nature* 405, 228-233.
 Stouffer, D. B. & Bascompte, J. (2011). Compartmentalization increases food-web persistence. *PNAS* 108, 3648-3652.

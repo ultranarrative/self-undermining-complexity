@@ -185,3 +185,71 @@ if __name__ == "__main__":
     fig_main()
     fig_spectra()
     print("wrote figures/fig1_may_bound.png, fig2_main.png, fig3_spectra.png")
+
+
+def fig_correction():
+    """The two checks that overturned the original 'all-or-nothing' reading."""
+    e, f = load("e_threshold"), load("f_matched")
+    t = np.array(e["targets"])
+    ceiling = e["ceiling"]
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11.5, 4.4))
+
+    # Left: the ceiling agreement at q = 0.99 is an artefact of the threshold.
+    ax1.axhline(ceiling, color=MUTED, linewidth=1.2, linestyle=(0, (4, 3)), zorder=1)
+    ax1.text(t[0], ceiling + 0.022, "compartment ceiling", color=MUTED, fontsize=8.5)
+    ths = ["0.01", "0.05", "0.10", "0.30"]
+    ramp = [RAMP_5[4], RAMP_5[3], RAMP_5[2], RAMP_5[0]]
+    for colour, th in zip(ramp, ths):
+        ax1.plot(t, e["levels"]["0.99"][th], color=colour, linewidth=2,
+                 label=f"detect > {th}", zorder=3)
+    ax1.set_xlim(t[0], t[-1])
+    ax1.set_ylim(0, 1.0)
+    ax1.legend(loc="upper left", fontsize=8.5, labelcolor=INK_2,
+               title="threshold, q = 0.99", title_fontsize=8.5)
+    dress(ax1, r"$\sigma\sqrt{SC}$", "worst-case share of community moved",
+          "The ceiling agreement was an artefact",
+          "At a finer detection threshold, q = 0.99 sits above the ceiling everywhere")
+
+    # Right: compare at matched distance to the boundary, not matched sigma.
+    edges = np.array(f["edges"])
+    mids = (edges[:-1] + edges[1:]) / 2
+    for colour, q in zip([RAMP_5[0], RAMP_5[1], RAMP_5[3], RAMP_5[4]],
+                         ["0.00", "0.50", "0.99", "1.00"]):
+        ax2.plot(mids, f["binned"][q], color=colour, linewidth=2,
+                 marker="o", markersize=5, markerfacecolor=colour,
+                 markeredgecolor=SURFACE, markeredgewidth=1.4,
+                 label=f"q = {q}", zorder=3)
+    ax2.axhline(ceiling, color=MUTED, linewidth=1.2, linestyle=(0, (4, 3)), zorder=1)
+    ax2.set_xlim(mids[0] - 0.03, 0.02)
+    ax2.set_ylim(0, 1.05)
+    ax2.legend(loc="upper left", fontsize=8.5, labelcolor=INK_2, title="modularity",
+               title_fontsize=8.5)
+    ax2.annotate("criticality", (0.0, 0.04), xytext=(-6, 0), textcoords="offset points",
+                 color=MUTED, fontsize=8.5, ha="right")
+    dress(ax2, r"leading Re($\lambda$), matched across q", "worst-case share of community moved",
+          "Containment is graded, not all-or-nothing",
+          "Same distance to the boundary for every q, so stability is not confounded")
+    fig.tight_layout()
+    fig.savefig("figures/fig4_correction.png", bbox_inches="tight")
+    plt.close(fig)
+
+
+def fig_extreme_value():
+    d = load("d_extreme_value")
+    g = np.array(d["grid"])
+    fig, ax = plt.subplots(figsize=(6.2, 4.0))
+    ax.axvline(1.0, color=MUTED, linewidth=1.2, linestyle=(0, (4, 3)), zorder=1)
+    ax.plot(g, d["p_block"], color=RAMP_3[0], linewidth=2, label="one block, S = 25")
+    ax.plot(g, d["p_pred"], color=RAMP_3[1], linewidth=2.6,
+            label="(one block)$^4$, predicted")
+    ax.plot(g, d["p_m4"], color=RAMP_3[2], linewidth=2, linestyle=(0, (2, 2)),
+            label="measured, m = 4, q = 1")
+    ax.set_xlim(g[0], g[-1])
+    ax.set_ylim(-0.03, 1.03)
+    ax.legend(loc="lower left", fontsize=8.5, labelcolor=INK_2)
+    dress(ax, r"$\sigma\sqrt{SC}$", "P(locally stable)",
+          "The q = 1 shortfall is an extreme-value effect",
+          "Four blocks are all stable with probability $p^4$, so the curve moves left")
+    fig.tight_layout()
+    fig.savefig("figures/fig5_extreme_value.png", bbox_inches="tight")
+    plt.close(fig)

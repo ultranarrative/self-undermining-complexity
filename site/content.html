@@ -98,22 +98,31 @@
     <h3>Compartments do not move the threshold</h3>
     <p>
       Hold the link budget fixed and redistribute links inward, and the transition sits at
-      1.045 with no compartments and 0.972 when they are sealed. Full separation is
-      marginally <em>worse</em>. Packing the same links into smaller blocks raises the density
-      inside each one by exactly enough to cancel the size reduction, so the eigenvalue disk
-      keeps its radius. Set <span class="sym">m</span> to 4 and drag
-      <span class="sym">q</span> to see the cloud refuse to shrink.
+      1.045 with no compartments and 0.972 when they are sealed. This follows from the
+      construction: packing the same links into smaller blocks raises the density inside
+      each one by exactly enough to cancel the size reduction, so the eigenvalue disk keeps
+      its radius. Grilli, Rogers and Allesina proved the general case analytically in 2016,
+      so this is a numerical instance of a known theorem rather than a new result. The
+      shortfall at <span class="sym">q</span> = 1 is an extreme-value effect: four blocks
+      are all stable with probability <span class="sym">p&#8308;</span>, which predicts a
+      transition at 0.981 against a measured 0.978. Set <span class="sym">m</span> to 4 and
+      drag <span class="sym">q</span> to see the cloud refuse to shrink.
     </p>
   </article>
 
   <article>
-    <h3>What they do instead is cap the damage, and only when sealed</h3>
+    <h3>What they do instead is cap the reach of a failure</h3>
     <p>
-      Press one species near the boundary and the worst case moves 91 percent of an
-      integrated community against 24 percent of a compartmentalized one, which is exactly
-      the share inside one compartment. The surprise sits at
-      <span class="sym">q</span> = 0.99: with roughly 15 links left of 1500, damage still
-      reaches 69 percent. Partial separation is not partial containment.
+      Compared at the same distance to the stability boundary, the worst single press moves
+      99 percent of an integrated community and 24 percent of a compartmentalized one,
+      which is exactly the share inside one compartment. Only complete separation gives a
+      hard cap, and it is exact rather than statistical, because the inverse is block
+      diagonal and damage cannot leave the block it started in. Partial separation buys
+      real but graded protection that <em>decays as the system approaches criticality</em>:
+      at <span class="sym">q</span> = 0.99, damage is held to 31 percent at a comfortable
+      margin and reaches 81 percent at the edge. The mechanism is gain rather than
+      connectivity, since one cross link already makes the inverse dense and what changes
+      near the boundary is magnitude.
     </p>
   </article>
 </section>
@@ -128,8 +137,8 @@
   </p>
   <p>
     May, R. M. (1972). Will a large complex system be stable? <cite>Nature</cite> 238, 413. &middot;
-    Allesina, S. &amp; Tang, S. (2012). Stability criteria for complex ecosystems.
-    <cite>Nature</cite> 483, 205. &middot; Stouffer, D. B. &amp; Bascompte, J. (2011).
+    Grilli, J., Rogers, T. &amp; Allesina, S. (2016). Modularity and stability in ecological
+    communities. <cite>Nat. Commun.</cite> 7, 12031. &middot; Stouffer, D. B. &amp; Bascompte, J. (2011).
     Compartmentalization increases food-web persistence. <cite>PNAS</cite> 108, 3648.
   </p>
   <p class="colophon-mark">Ultranarrative Lab &middot; unpublished working material</p>
