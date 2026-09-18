@@ -1,0 +1,14 @@
+# Unpublished manuscripts and private working material. These are deliberately
+# kept out of the repo: the point of publishing this code is that an outside
+# reader can check the May result on its own, without the Processism framing.
+*.pdf
+complexity-self-destruction.md
+
+# Brand assets are baked into site/index.html at build time.
+site/logo.b64
+
+# Environment
+.venv/
+__pycache__/
+*.pyc
+.DS_Store

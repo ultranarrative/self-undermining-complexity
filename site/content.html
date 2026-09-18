@@ -1,0 +1,136 @@
+<header class="masthead">
+  <img class="mark" src="__LOGO__" alt="Ultranarrative">
+  <div class="masthead-meta">
+    <span>Lab note 01</span>
+    <span>September 2026</span>
+  </div>
+</header>
+
+<div class="lede">
+  <p class="eyebrow">Reproducing May 1972, and testing one prediction against it</p>
+  <h1>Will a large complex system be stable?</h1>
+  <p class="standfirst">
+    Robert May asked it in <cite>Nature</cite> in 1972 and answered with a threshold.
+    Wire together <span class="sym">S</span> species at random, let each interaction
+    have typical strength <span class="sym">&sigma;</span> and let a fraction
+    <span class="sym">C</span> of the possible links exist, and the community holds
+    together only while <span class="sym">&sigma;&radic;(SC)</span> stays below 1.
+    Past that, it falls apart. Drag the controls and watch the threshold arrive.
+  </p>
+</div>
+
+<section class="instrument" aria-label="Interactive eigenvalue plane">
+  <figure class="plot">
+    <canvas id="plane" aria-label="Eigenvalues of the community matrix in the complex plane"></canvas>
+    <div class="plot-key">
+      <span class="key"><i class="dot dot-stable"></i>eigenvalue</span>
+      <span class="key"><i class="dot dot-unstable"></i>right of zero</span>
+      <span class="key"><i class="rule rule-pred"></i>predicted radius</span>
+      <span class="key"><i class="rule rule-crit"></i>critical radius</span>
+    </div>
+    <figcaption id="verdict-line">Every eigenvalue sits left of zero, so the community returns to equilibrium after a small shock.</figcaption>
+  </figure>
+
+  <aside class="rail">
+    <div class="readout">
+      <div class="readout-head">
+        <span class="readout-label">&sigma;&radic;(SC)</span>
+        <span class="chip" id="chip">stable</span>
+      </div>
+      <output class="readout-value" id="quantity">0.939</output>
+      <div class="meter" role="presentation"><span class="meter-fill" id="meter"></span><span class="meter-tick"></span></div>
+      <dl class="stats">
+        <div><dt>max Re(&lambda;)</dt><dd id="maxre">-0.061</dd></div>
+        <div><dt>right of zero</dt><dd id="crossers">0</dd></div>
+        <div><dt>within C</dt><dd id="cin">0.200</dd></div>
+        <div><dt>between C</dt><dd id="cout">0.200</dd></div>
+        <div><dt>links across walls</dt><dd id="walls">1500</dd></div>
+        <div><dt>solve time</dt><dd id="timing">8 ms</dd></div>
+      </dl>
+      <p class="note" id="note" hidden></p>
+    </div>
+
+    <div class="controls">
+      <div class="control">
+        <label for="S">species <span class="sym">S</span></label>
+        <output id="S-out">100</output>
+        <input type="range" id="S" min="20" max="140" step="4" value="100">
+      </div>
+      <div class="control">
+        <label for="C">connectance <span class="sym">C</span></label>
+        <output id="C-out">0.20</output>
+        <input type="range" id="C" min="0.04" max="0.35" step="0.01" value="0.20">
+      </div>
+      <div class="control">
+        <label for="sig">strength <span class="sym">&sigma;</span></label>
+        <output id="sig-out">0.210</output>
+        <input type="range" id="sig" min="0.02" max="0.32" step="0.005" value="0.210">
+      </div>
+      <div class="control">
+        <label for="m">compartments <span class="sym">m</span></label>
+        <output id="m-out">1</output>
+        <input type="range" id="m" min="1" max="5" step="1" value="1">
+      </div>
+      <div class="control">
+        <label for="q">modularity <span class="sym">q</span></label>
+        <output id="q-out">0.00</output>
+        <input type="range" id="q" min="0" max="1" step="0.02" value="0">
+      </div>
+      <button type="button" id="resample">New draw</button>
+    </div>
+  </aside>
+</section>
+
+<section class="findings">
+  <h2>Three things this rig was built to settle</h2>
+
+  <article>
+    <h3>The bound reproduces</h3>
+    <p>
+      Sweeping <span class="sym">&sigma;&radic;(SC)</span> across 150 draws per point, the
+      probability of stability collapses at 1.092 for <span class="sym">S</span> = 50,
+      1.036 at 100 and 1.026 at 200. It converges on 1 from above as the finite-size
+      wobble shrinks, which is what May predicted.
+    </p>
+  </article>
+
+  <article>
+    <h3>Compartments do not move the threshold</h3>
+    <p>
+      Hold the link budget fixed and redistribute links inward, and the transition sits at
+      1.045 with no compartments and 0.972 when they are sealed. Full separation is
+      marginally <em>worse</em>. Packing the same links into smaller blocks raises the density
+      inside each one by exactly enough to cancel the size reduction, so the eigenvalue disk
+      keeps its radius. Set <span class="sym">m</span> to 4 and drag
+      <span class="sym">q</span> to see the cloud refuse to shrink.
+    </p>
+  </article>
+
+  <article>
+    <h3>What they do instead is cap the damage, and only when sealed</h3>
+    <p>
+      Press one species near the boundary and the worst case moves 91 percent of an
+      integrated community against 24 percent of a compartmentalized one, which is exactly
+      the share inside one compartment. The surprise sits at
+      <span class="sym">q</span> = 0.99: with roughly 15 links left of 1500, damage still
+      reaches 69 percent. Partial separation is not partial containment.
+    </p>
+  </article>
+</section>
+
+<footer class="colophon">
+  <p>
+    <strong>Method.</strong> May's original community matrix, with <span class="sym">-1</span> on the
+    diagonal and off-diagonal entries drawn independently from
+    <span class="sym">N(0, &sigma;&sup2;)</span> with probability <span class="sym">C</span>.
+    Eigenvalues are computed in the browser by Householder reduction to Hessenberg form
+    followed by Francis double-shift QR, checked against LAPACK to 1.2e-14.
+  </p>
+  <p>
+    May, R. M. (1972). Will a large complex system be stable? <cite>Nature</cite> 238, 413. &middot;
+    Allesina, S. &amp; Tang, S. (2012). Stability criteria for complex ecosystems.
+    <cite>Nature</cite> 483, 205. &middot; Stouffer, D. B. &amp; Bascompte, J. (2011).
+    Compartmentalization increases food-web persistence. <cite>PNAS</cite> 108, 3648.
+  </p>
+  <p class="colophon-mark">Ultranarrative Lab &middot; unpublished working material</p>
+</footer>
