@@ -6,18 +6,59 @@ the reasoning stays auditable.
 
 ## The thesis
 
-In systems whose complexity is sustained by finite throughput, the growth of complexity
-tends to undermine the processes that sustain it.
+> Is the universe not merely capable of producing its own destruction, but structurally
+> predisposed to do so by the very process through which complexity emerges?
 
-One candidate formalization, the Maintenance Thesis, stipulates three ingredients:
-the benefit of complexity levels off, maintenance cost grows faster than linearly, and
-coupling between components rises with complexity. Together these give a threshold `C*`
-past which net returns turn negative and large failures become more likely, with
-modularity as the escape clause.
+Three things in that sentence have to be separated before any of it can be tested.
 
-**Experiment 02 suggests that formalization is over-specified.** A model with none of
-those three ingredients, and no maintenance cost at all, still drives itself to marginal
-stability. The mechanism appears to be simpler and more general than the thesis proposes.
+**"By the very process through which complexity emerges"** is the testable core. It says
+the mechanism that builds complexity is the same one that produces fragility, rather than
+fragility arriving from outside as wear, shock or exhaustion. This is a claim about
+process, and a model can settle it.
+
+**"Structurally predisposed"** is a claim about generality, not about any one system. It
+only earns the word "structurally" if the mechanism appears across substrates that share
+no physics. Shown in one model class, it is a fact about that model class.
+
+**"The universe"** is the scope, and nothing in this repository reaches it. Worth being
+blunt: the experiments here run at the scale of interacting populations. They can show a
+mechanism exists and recurs. They cannot show it holds cosmologically.
+
+There is also a warning from your own work. *The Epistemic Filter* argues that evolved
+observers over-detect purpose, and "predisposed" is a purpose word. Stories of order
+consuming itself recur in every end-of-days tradition, which is exactly what the filter
+predicts whether or not the cosmos cooperates. The neutral restatement,
+**does complexification generically drive systems toward their own instability**, is
+testable where the original is not, and it survives the filter because the systems tested
+have no observers inside them.
+
+### The common-cause objection, and what experiment 02 does to it
+
+The strongest objection to the thesis is thermodynamic and it is in your own notes:
+complexity and destruction may share a cause, the low-entropy past, rather than one
+causing the other. Structure formation and its undoing would then be siblings, not parent
+and child.
+
+Experiment 02 bears on this directly. Generalized Lotka-Volterra has no thermodynamic
+gradient in it. Nothing is being spent, no free energy is running down, there is no
+low-entropy past. Complexity still drives itself to the edge of stability. Whatever
+produces the fragility there, it is not the shared thermodynamic cause, because that
+cause is absent from the model. The mechanism looks structural, a property of how
+interacting systems accumulate, rather than a thermodynamic accounting identity.
+
+That is one model. It is not nothing.
+
+### One candidate formalization
+
+The Maintenance Thesis stipulates three ingredients: the benefit of complexity levels off,
+maintenance cost grows faster than linearly, and coupling rises with complexity. Together
+they give a threshold `C*` past which returns turn negative, with modularity as the escape
+clause.
+
+**Experiment 02 suggests it is over-specified.** A model with none of those three
+ingredients, and no maintenance cost at all, still reaches marginal stability. The
+mechanism appears simpler and more general than this formalization proposes, which is
+good news for the thesis and bad news for the formalization.
 
 ## Status of each prediction
 
@@ -56,6 +97,12 @@ experiment 03.
 | [**01. Drawn**](experiments/01-random-matrix/) | Does compartmentalization move May's stability bound? | No, and it was already known. It caps damage instead, gradedly |
 | [**02. Grown**](experiments/02-assembly/) | Does a community that grows its own complexity walk to the edge? | Yes, and with no help |
 | **03. Grown into compartments** | Does containment survive at the endpoint assembly picks? | Not yet run |
+| **04. Other substrates** | Does self-driven criticality appear in systems with no ecology in them? | Not yet run |
+
+Experiment 04 is the one that decides whether "structurally" is earned. The assembly
+result has to be reproduced in at least two model classes that share no mechanism with
+Lotka-Volterra, and where a null of the same size does not reproduce it. If it recurs,
+the claim is about complexification. If it does not, it is a fact about ecology.
 
 Each experiment directory is self-contained: its own README stating what it asked and
 what it found, its own scripts, saved results and figures.
