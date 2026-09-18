@@ -12,14 +12,23 @@ the reasoning stays auditable.
 That question is the motivation. It is not what gets tested here, and it does not need
 to be, because it rests on a mechanistic claim that does get tested:
 
-> **Does complexification generically drive systems toward their own instability?**
+> **Do independent processes of complexification repeatedly produce a state in which the
+> system's capacity to absorb perturbation approaches zero?**
 
-The relationship between the two is a necessary condition. If complexity does not
-generically produce its own fragility, the cosmological thesis is dead whatever else is
-true, because its whole content is that the universe inherits this property from the
-process that builds structure in it. If complexity does produce its own fragility,
-generically and across substrates, then the thesis is live and what remains is a question
-about scope and cosmology rather than about mechanism.
+Note the care in the wording. "Complexity generates its own fragility" sounds causal and
+claims more than the measurements support. What the models actually show is that
+complexification *drives systems toward marginal stability*, which may happen through
+interaction density, coupling, dimensionality, correlated response or something else
+again. Which of those is the invariant is precisely what experiment 04 is for.
+
+The relationship between the two is a necessary condition, and it needs stating carefully.
+If complexification does not generically produce its own fragility, then **the cosmological
+argument from complexification fails.** Not the cosmological thesis outright: someone could
+propose a different mechanism by which the universe is predisposed to undermine itself, and
+nothing here would touch it. What dies is this argument for it, which is the one worth
+defending because it is the one that can be tested. If complexification does produce
+fragility, generically and across substrates, the argument is live and what remains is a
+question about scope rather than about mechanism.
 
 So this repository is the science the thesis stands on. Three things have to hold.
 
@@ -29,10 +38,10 @@ class, shown by [experiment 02](experiments/02-assembly/) and established before
 Biroli, Bunin and Cammarota (2018). Reproduced here, not discovered here.
 
 **It has to be generic.** One model class is an existence proof, not a structural claim.
-The mechanism has to recur in systems that share no physics with each other, and it has
-to beat a null of the same size in each. This is experiment 04 and it is the central
-deliverable of the whole programme, not a caveat on it. The word "structurally" in the
-thesis is exactly this word.
+The mechanism has to recur in systems that share no physics with each other, and it has to
+beat a null of the same size in each. Here, **"structurally" means the effect recurs across
+independent substrates rather than being peculiar to one physical implementation.** This is
+experiment 04 and it is the central deliverable of the whole programme, not a caveat on it.
 
 **It has to survive the observer.** *The Epistemic Filter* argues that evolved observers
 over-detect purpose, and "predisposed" is a purpose word. Stories of order consuming
@@ -52,8 +61,12 @@ Experiment 02 bears on this directly. Generalized Lotka-Volterra has no thermody
 gradient in it. Nothing is being spent, no free energy is running down, there is no
 low-entropy past. Complexity still drives itself to the edge of stability. Whatever
 produces the fragility there, it is not the shared thermodynamic cause, because that
-cause is absent from the model. The mechanism looks structural, a property of how
-interacting systems accumulate, rather than a thermodynamic accounting identity.
+cause is absent from the model.
+
+Stated at the strength the evidence supports: **thermodynamic exhaustion is not necessary
+for an endogenous, complexity-driven approach to instability.** That is narrower than
+"therefore complexity destroys itself" and far more defensible, and it is enough to deny
+the common-cause objection its claim to be the whole explanation.
 
 That is one model class, which is why experiment 04 exists. But it is the right kind of
 evidence against the strongest objection the thesis faces, and it was not available
@@ -68,8 +81,12 @@ clause.
 
 **Experiment 02 suggests it is over-specified.** A model with none of those three
 ingredients, and no maintenance cost at all, still reaches marginal stability. The
-mechanism appears simpler and more general than this formalization proposes, which is
-good news for the thesis and bad news for the formalization.
+candidate replacement, which experiment 04 would test:
+
+> Maintenance costs are **sufficient but not necessary** for self-undermining
+> complexification.
+
+That is good news for the thesis and bad news for this formalization of it.
 
 ## Status of each prediction
 
@@ -81,6 +98,8 @@ good news for the thesis and bad news for the formalization.
 | P4. At equal complexity, modular systems outlast integrated ones | **False as stated**, and already known false analytically | [01](experiments/01-random-matrix/) |
 | Complexification drives a system to its own stability boundary | **Supported.** Scale-free distance falls from 0.84 to 0.03 during assembly | [02](experiments/02-assembly/) |
 | Modularity caps failure size | **Supported**, at roughly `1/m`, but the cap is graded and degrades toward criticality | [01](experiments/01-random-matrix/) |
+| Modularity's protection fails at the state assembly selects | **Supported.** Tested directly in one model. Only complete separation holds, and a uniform background coupling undoes even that | [03](experiments/03-compartmental-assembly/) |
+| Compartments slow the approach to criticality | **False.** Every level of compartmentalization reaches the same marginal state | [03](experiments/03-compartmental-assembly/) |
 | Assembly raises the propagation scale | **Not supported.** Reach rises with complexity as a size effect; a matched random draw has the same reach | [02](experiments/02-assembly/) |
 
 ## The claim the two experiments make together
@@ -89,17 +108,17 @@ Neither experiment establishes this on its own, and it is the most interesting t
 here, so it is stated as an open hypothesis rather than a result:
 
 > **Modularity's protection fails precisely at the state that assembly selects for.**
-> Experiment 01 shows that containment, modularity's only real benefit, weakens as a
-> system approaches criticality. Experiment 02 shows that a system which grows its own
-> complexity ends up at criticality without being put there. If both hold in one model,
-> then walls stop working exactly where complexification lands.
 
-The two halves currently use different models, a random community matrix and generalized
-Lotka-Volterra, so their eigenvalue scales are not comparable and this is a qualitative
-convergence rather than a computed result. **The experiment that would settle it is
-assembly into compartments:** run the grown model with block structure and measure
-whether containment still holds at the endpoint the community picks for itself. That is
-experiment 03.
+Stated as an open hypothesis before [experiment 03](experiments/03-compartmental-assembly/)
+ran, because experiments 01 and 02 used different models and could only converge on it
+qualitatively. Experiment 03 tested it directly in a single model and it held, with a
+strengthening that was not predicted: complete separation of the fluctuating interactions
+is not sufficient either. A uniform background coupling of 0.00125 per pair, with all of
+the interaction variance moved inside the compartments, still breaks containment at
+criticality. Walls have to stop everything.
+
+Compartments also turn out not to slow the approach to criticality at all. Every level of
+modularity reaches the same marginal state.
 
 ## Experiments
 
@@ -107,7 +126,7 @@ experiment 03.
 |---|---|---|
 | [**01. Drawn**](experiments/01-random-matrix/) | Does compartmentalization move May's stability bound? | No, and it was already known. It caps damage instead, gradedly |
 | [**02. Grown**](experiments/02-assembly/) | Does a community that grows its own complexity walk to the edge? | Yes, and with no help |
-| **03. Grown into compartments** | Does containment survive at the endpoint assembly picks? | Not yet run |
+| [**03. Grown into compartments**](experiments/03-compartmental-assembly/) | Does containment survive at the endpoint assembly picks? | No. Walls do not slow criticality, and only complete separation contains damage there |
 | **04. Other substrates** | Does self-driven criticality appear in systems with no ecology in them? | Not yet run |
 
 Experiment 04 is the one that decides whether "structurally" is earned. The assembly

@@ -139,3 +139,65 @@ def drawn_null(A: np.ndarray, k: int, rng: np.random.Generator,
         return 0.0
     idx = rng.choice(A.shape[0], size=k, replace=False)
     return press_spread(A, idx, threshold)
+
+
+def modular_pool(S_pool: int, m: int, mu: float, sigma: float, q: float,
+                 rng: np.random.Generator, couple_mean: bool = False
+                 ) -> tuple[np.ndarray, np.ndarray]:
+    """
+    Interaction pool with m compartments at modularity q, holding the total
+    interaction variance fixed.
+
+    The same budget constraint as the drawn experiments, carried over to the
+    grown one: q redistributes interaction variance inward rather than adding any.
+
+    `couple_mean` decides whether the mean interaction respects the compartment
+    walls. With couple_mean=False the mean is split by q like the variance, so
+    q = 1 leaves the compartments genuinely independent and a press cannot cross.
+    With couple_mean=True every pair keeps the same mean mu/S_pool whatever q
+    says, so the compartments stay weakly coupled through the mean even when all
+    the variance has been moved inside. That second case is not a mistake, it is
+    the realistic one: walls in real systems are usually built against
+    fluctuating interactions while a uniform background coupling survives.
+
+    Returns the matrix and each species' compartment label.
+    """
+    base, extra = divmod(S_pool, m)
+    sizes = np.array([base + (1 if i < extra else 0) for i in range(m)])
+    label = np.repeat(np.arange(m), sizes)
+    same = label[:, None] == label[None, :]
+
+    p_in = float((sizes*(sizes-1)).sum() / (S_pool*(S_pool-1))) if m > 1 else 1.0
+    var = sigma**2 / S_pool
+    if m == 1:
+        v_in = v_out = var
+    else:
+        v_out = var * (1.0 - q)
+        v_in = (var - (1.0 - p_in)*v_out) / p_in
+
+    A = rng.normal(0.0, 1.0, size=(S_pool, S_pool))
+    A *= np.where(same, np.sqrt(v_in), np.sqrt(v_out))
+
+    base_mu = mu / S_pool
+    if couple_mean or m == 1:
+        A += base_mu
+    else:
+        mu_out = base_mu * (1.0 - q)
+        mu_in = (base_mu - (1.0 - p_in)*mu_out) / p_in
+        A += np.where(same, mu_in, mu_out)
+
+    np.fill_diagonal(A, 1.0)
+    return A, label
+
+
+def compartment_ceiling(label: np.ndarray, idx: np.ndarray) -> float:
+    """
+    Largest share of the surviving community that one compartment holds.
+
+    With compartments fully decoupled this is the hard cap on how far a press
+    can reach, so it is the number the measured spread has to be read against.
+    """
+    if idx.size < 2:
+        return float("nan")
+    counts = np.bincount(label[idx])
+    return float((counts.max() - 1) / (idx.size - 1))
