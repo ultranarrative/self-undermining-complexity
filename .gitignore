@@ -1,8 +1,11 @@
-# Unpublished manuscripts and private working material. These are deliberately
-# kept out of the repo: the point of publishing this code is that an outside
-# reader can check the May result on its own, without the Processism framing.
+# Unpublished manuscripts stay out entirely: the point of publishing this code is
+# that an outside reader can check the result on its own, without the Processism
+# framing, and the manuscripts are not mine to distribute from here.
 *.pdf
-complexity-self-destruction.md
+
+# private/ IS tracked, deliberately, so the working notes have version history
+# while this repository is private. See private/README.md: it must be removed
+# before the repository is made public.
 
 # Brand assets are baked into site/index.html at build time.
 site/logo.b64
