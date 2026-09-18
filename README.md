@@ -1,20 +1,25 @@
-# Does modularity move May's bound?
+# Does a community walk itself to the edge of stability?
 
-**At a fixed link budget, compartmentalizing a random community does not move the
-local-stability threshold.** What compartments do instead is cap the reach of a
-failure: compared at the same distance to the stability boundary, the worst single
-perturbation moves 99% of an integrated community and 24% of a fully
-compartmentalized one, which is exactly the share of the community inside one
-compartment.
+**Yes, and it needs no help.** A community that grows its own complexity, one arriving
+species at a time, drives its leading eigenvalue from 0.84 of the bulk spectrum down to
+0.03 of it. Every interaction strength tested converges on the same endpoint while
+reaching very different complexities. Nothing tunes the system toward the boundary. The
+largest cascade a single new arrival can trigger grows alongside it.
+
+![Assembly](figures/fig6_assembly.png)
+
+**Compartmentalizing does not move that boundary, and this was already known.** At a
+fixed link budget, walls do not raise the stability threshold. Grilli, Rogers and
+Allesina (2016) proved that analytically. What compartments do instead is cap the reach
+of a failure: at the same distance to the boundary, the worst single perturbation moves
+99% of an integrated community and 24% of a fully compartmentalized one, which is exactly
+the share inside one compartment. That cap is graded, and it weakens as the system
+approaches criticality.
 
 ![Main result](figures/fig2_main.png)
 
-**Result 2 is a numerical instance of a known theorem.** Grilli, Rogers and Allesina
-(2016) proved analytically that modularity does not generally stabilize ecological
-communities, with moderate stabilizing effects only for particular parameter choices.
-This repository reproduces that conclusion by simulation and shows the mechanism in
-the spectra. The contribution here, if there is one, is result 3 and its dependence on
-proximity to criticality, not result 2.
+Sections 1 to 3 are the random-matrix work, which is largely a reproduction and a
+falsification. Section 4 is the assembly experiment, which is where anything new is.
 
 ## Why this matters
 
@@ -116,6 +121,71 @@ changes near the boundary is magnitude, since `||A^-1||` diverges as the leading
 eigenvalue approaches zero. There is no percolation threshold between `q = 0.99` and
 `q = 1.00` to locate. The only structural discontinuity is at exactly zero cross links.
 
+### 4. Grown, not drawn: complexity walks itself to the edge
+
+Everything above uses a matrix that was drawn. This section grows one. Species arrive
+one at a time from a fixed pool under generalized Lotka-Volterra dynamics, the community
+is re-solved to its saturated equilibrium after each arrival, and anything that cannot
+hold a positive abundance is dropped. Nothing tunes the system toward the boundary.
+
+![Assembly](figures/fig6_assembly.png)
+
+**The community drives its own leading eigenvalue to zero.** Reported scale-free, as the
+ratio of the leading real part to the bulk of the Jacobian spectrum, because abundances
+change during assembly and the raw eigenvalue would drift toward zero for reasons that
+have nothing to do with stability:
+
+| interaction spread | ratio at richness ~12 | at maximum richness | richness reached |
+|---|---|---|---|
+| 0.6 | 0.835 | 0.035 | 373 |
+| 0.9 | 0.756 | 0.025 | 309 |
+| 1.2 | 0.648 | 0.028 | 231 |
+| 1.5 | 0.624 | 0.037 | 151 |
+
+Every value of sigma converges on the same endpoint, near 0.03, while reaching very
+different complexities. Communities trade richness against interaction strength and
+arrive at the same distance from their own boundary either way.
+
+**Large failures grow with complexity (P3).** The largest cascade triggered by a single
+arrival rises with richness at every sigma, from 0 to 2 at sigma = 0.6 and from 0 to 10
+at sigma = 1.5. This is the one Maintenance Thesis prediction that survives intact.
+
+**Assembly does not raise reach (negative result).** Worst-case press spread rises
+steeply with richness, from 0.26 to 0.56 at sigma = 1.2. But the same number of species
+drawn at random from the same pool gives the same reach, and usually slightly more. The
+propagation scale rises with complexity as a size effect, not because assembly selects
+for far-reaching structure. The interesting version of this claim is the one that failed.
+
+### What this does to the thesis
+
+The Maintenance Thesis stipulates three ingredients: benefit levels off, maintenance cost
+grows faster than linearly, and coupling rises with complexity. The assembly model has
+none of them. There is no maintenance cost in it at all. It still drives itself to
+marginal stability, which means the thesis is over-specified: the mechanism is simpler
+and more general than the one it proposes, and inserting a cost function to produce
+collapse would be assuming the conclusion.
+
+Total abundance is sublinear in richness at sigma = 0.6 and superlinear at sigma >= 0.9,
+so P1 is parameter-dependent rather than a fact about complex systems, and total
+abundance is a weak proxy for benefit in any case.
+
+### What this does to *Destructive Potential*
+
+Equation (7) gives `E = ς · [Φ_E + Tσ̇] · [1 + λ⁺max]` with `λ⁺ = max(λmax, 0)`. Two
+things follow from the assembly result.
+
+First, `λ⁺` is exactly 0 throughout the stable regime, so the amplification factor is
+pinned at exactly 1 everywhere below criticality. Theorem 3.3 concludes that E is
+minimised at the edge of chaos from that factor being approximately 1, but it is exactly
+1 across the whole stable region and therefore cannot discriminate between the edge and
+anywhere else.
+
+Second, ς rises with complexity while the system drives itself toward the point where
+`λ⁺` stops being 0. So E rises with complexity through the propagation scale, and the
+system parks itself exactly where the amplification factor is about to start growing.
+The note's earlier diagnosis was that Processism needs a maintenance cost term that rises
+with C. It may not. ς already rises with C, and the papers simply never let it vary.
+
 ## Limits
 
 - **Nothing here complexifies.** The matrix is drawn, not grown. This model cannot test
@@ -136,19 +206,29 @@ eigenvalue approaches zero. There is no percolation threshold between `q = 0.99`
   section 3 shows. The ordering across `q` does not.
 - **Uniform self-regulation, one size.** Every species gets the same `d`, and
   experiments 2 and 3 use `S = 100`, `m = 4` only.
+- **Assembly finds the saturated equilibrium, not the dynamical attractor.** Section 4
+  solves for equilibrium by iterative removal rather than integrating the ODEs. That is
+  the standard construction and it is fast, but it assumes the community settles to that
+  equilibrium rather than to a limit cycle or a chaotic attractor.
+- **The high-richness bins saturate the pool.** Mean cascade size falls in the last bin
+  at sigma = 0.9 and 1.2 because few uninvaded species remain, not because cascades
+  became rarer. Maximum cascade size is the measure to read there.
 
 ## Next
 
-1. **Sweep `m` and measure what small compartments cost.** Capping damage at 1/m has to
+1. **Integrate the ODEs for a subset of assembly histories** to check that the saturated
+   equilibrium is where the dynamics actually go.
+2. **Sweep `m` and measure what small compartments cost.** Capping damage at 1/m has to
    cost something, or every system would be maximally compartmentalized. Finding that
    cost is what would turn this from an observation into a law, and it is the most
    valuable experiment left.
-2. **Test the criticality dependence properly.** The prediction is that the apparent
+3. **Test the criticality dependence properly.** The prediction is that the apparent
    containment threshold moves with the detection threshold and with distance to the
    bound, and that it is a statement about gain rather than structure.
-3. **Repeat result 2 with predator-prey sign structure** (Allesina & Tang 2012), which
+4. **Repeat result 2 with predator-prey sign structure** (Allesina & Tang 2012), which
    may change the answer.
-4. **Move to assembly models** per the first limit above.
+5. **Vary the arrival process.** Every result in section 4 uses random arrival order.
+   Whether ordered or adversarial invasion changes the endpoint is untested.
 
 ## Running it
 
@@ -156,11 +236,14 @@ eigenvalue approaches zero. There is no percolation threshold between `q = 0.99`
 python -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python run.py             # ~3 min, writes results/*.json
 .venv/bin/python critique_check.py  # the three checks behind sections 2 and 3
+.venv/bin/python run_assembly.py    # section 4, ~1 min
+.venv/bin/python controls.py        # the two controls behind section 4
 .venv/bin/python figures.py         # redraws figures/ from saved results
 ```
 
-`may.py` is the model and the measures. `run.py` and `critique_check.py` are the
-experiments. `figures.py` only draws.
+`may.py` and `assembly.py` are the two models and their measures. `run.py`,
+`critique_check.py`, `run_assembly.py` and `controls.py` are the experiments.
+`figures.py` only draws.
 
 ## References
 
