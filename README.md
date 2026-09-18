@@ -9,33 +9,42 @@ the reasoning stays auditable.
 > Is the universe not merely capable of producing its own destruction, but structurally
 > predisposed to do so by the very process through which complexity emerges?
 
-Three things in that sentence have to be separated before any of it can be tested.
+That question is the motivation. It is not what gets tested here, and it does not need
+to be, because it rests on a mechanistic claim that does get tested:
 
-**"By the very process through which complexity emerges"** is the testable core. It says
-the mechanism that builds complexity is the same one that produces fragility, rather than
-fragility arriving from outside as wear, shock or exhaustion. This is a claim about
-process, and a model can settle it.
+> **Does complexification generically drive systems toward their own instability?**
 
-**"Structurally predisposed"** is a claim about generality, not about any one system. It
-only earns the word "structurally" if the mechanism appears across substrates that share
-no physics. Shown in one model class, it is a fact about that model class.
+The relationship between the two is a necessary condition. If complexity does not
+generically produce its own fragility, the cosmological thesis is dead whatever else is
+true, because its whole content is that the universe inherits this property from the
+process that builds structure in it. If complexity does produce its own fragility,
+generically and across substrates, then the thesis is live and what remains is a question
+about scope and cosmology rather than about mechanism.
 
-**"The universe"** is the scope, and nothing in this repository reaches it. Worth being
-blunt: the experiments here run at the scale of interacting populations. They can show a
-mechanism exists and recurs. They cannot show it holds cosmologically.
+So this repository is the science the thesis stands on. Three things have to hold.
 
-There is also a warning from your own work. *The Epistemic Filter* argues that evolved
-observers over-detect purpose, and "predisposed" is a purpose word. Stories of order
-consuming itself recur in every end-of-days tradition, which is exactly what the filter
-predicts whether or not the cosmos cooperates. The neutral restatement,
-**does complexification generically drive systems toward their own instability**, is
-testable where the original is not, and it survives the filter because the systems tested
-have no observers inside them.
+**The mechanism has to be endogenous.** Fragility must come from the process that builds
+complexity, not from wear, shock or exhaustion arriving afterwards. Settled affirmatively
+in one model class by [experiment 02](experiments/02-assembly/): a community that grows
+its own complexity drives its leading eigenvalue to the boundary with nothing pushing it.
+
+**It has to be generic.** One model class is an existence proof, not a structural claim.
+The mechanism has to recur in systems that share no physics with each other, and it has
+to beat a null of the same size in each. This is experiment 04 and it is the central
+deliverable of the whole programme, not a caveat on it. The word "structurally" in the
+thesis is exactly this word.
+
+**It has to survive the observer.** *The Epistemic Filter* argues that evolved observers
+over-detect purpose, and "predisposed" is a purpose word. Stories of order consuming
+itself recur in every end-of-days tradition, which is what the filter predicts whether or
+not the cosmos cooperates. The defence is built into the method rather than argued: these
+are formal systems with no observers inside them, and the measures are scale-free or
+tested against matched nulls, so a result cannot be a projection.
 
 ### The common-cause objection, and what experiment 02 does to it
 
-The strongest objection to the thesis is thermodynamic and it is in your own notes:
-complexity and destruction may share a cause, the low-entropy past, rather than one
+The strongest objection to the thesis is thermodynamic: complexity and destruction may
+share a cause, the low-entropy past, rather than one
 causing the other. Structure formation and its undoing would then be siblings, not parent
 and child.
 
@@ -46,7 +55,9 @@ produces the fragility there, it is not the shared thermodynamic cause, because 
 cause is absent from the model. The mechanism looks structural, a property of how
 interacting systems accumulate, rather than a thermodynamic accounting identity.
 
-That is one model. It is not nothing.
+That is one model class, which is why experiment 04 exists. But it is the right kind of
+evidence against the strongest objection the thesis faces, and it was not available
+before.
 
 ### One candidate formalization
 
